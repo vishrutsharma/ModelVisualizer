@@ -15,6 +15,7 @@ private:
 	unsigned int VBO;
 	unsigned int VAO;
 	unsigned int EBO;
+	unsigned int SHADER_ID;
 	C_Mesh::Data m_data;
 
 public:

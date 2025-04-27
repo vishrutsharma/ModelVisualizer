@@ -64,26 +64,24 @@ Mesh::Mesh(const std::string& meshPath): VBO(0),VAO(0),EBO(0)
 
 void Mesh::Update()
 {
-	unsigned int shaderID = owner->GetMaterial()->GetShaderId();
+	glm::vec3 pos = glm::vec3(5.0, 5.0, 5.0);
 	glm::mat4 modelMatrix = glm::mat4(1.0f);
 	glm::mat4 projectionMatrix = glm::mat4(1.0f);
 	modelMatrix = glm::translate(modelMatrix, pos);
-	modelMatrix = glm::rotate(modelMatrix, rotation[0], glm::vec3(1.0, 0.0, 0.0));
+	/*modelMatrix = glm::rotate(modelMatrix, rotation[0], glm::vec3(1.0, 0.0, 0.0));
 	modelMatrix = glm::rotate(modelMatrix, rotation[1], glm::vec3(0.0, 1.0, 0.0));
-	modelMatrix = glm::rotate(modelMatrix, rotation[2], glm::vec3(0.0, 0.0, 1.0));
-	modelMatrix = glm::scale(modelMatrix, scale);
+	modelMatrix = glm::rotate(modelMatrix, rotation[2], glm::vec3(0.0, 0.0, 1.0));*/
+	modelMatrix = glm::scale(modelMatrix, glm::vec3(1.0,1.0,1.0));
 	
 	//Configure it inside Camera Class
-	projectionMatrix = glm::perspective(glm::radians(Config::CAMERA::FOV),
-		(float)Config::WINDOW::SCREEN_WIDTH / (float)Config::WINDOW::SCREEN_HEIGHT,
-		Config::CAMERA::NEAR_CLIP_PLANE,
-		Config::CAMERA::FAR_CLIP_PLANE);
+	projectionMatrix = glm::perspective(glm::radians(45.0),840.0/840.0,0.1,100.0);
 
-	unsigned int modelLocation = glGetUniformLocation(shaderID, "model");
-	unsigned int viewLocation = glGetUniformLocation(shaderID, "view");
-	unsigned int projectionLocation = glGetUniformLocation(shaderID, "projection");
+	unsigned int modelLocation = glGetUniformLocation(SHADER_ID, "model");
+	unsigned int viewLocation = glGetUniformLocation(SHADER_ID, "view");
+	unsigned int projectionLocation = glGetUniformLocation(SHADER_ID, "projection");
 	glad_glUniformMatrix4fv(modelLocation, 1, GL_FALSE, glm::value_ptr(modelMatrix));
-	glad_glUniformMatrix4fv(viewLocation, 1, GL_FALSE, glm::value_ptr(Camera::GetInstance().GetViewMatrix()));
+	glm::mat4 lookAtMat = glm::lookAt(pos, pos + glm::vec3(0, 0, -3.0), glm::vec3(0.0f, 1.0f, 0.0f));
+	glad_glUniformMatrix4fv(viewLocation, 1, GL_FALSE, glm::value_ptr(lookAtMat));
 	glad_glUniformMatrix4fv(projectionLocation, 1, GL_FALSE, glm::value_ptr(projectionMatrix));
 	
 	glBindVertexArray(VAO);
