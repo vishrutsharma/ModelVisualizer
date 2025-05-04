@@ -17,10 +17,12 @@ private:
 	unsigned int EBO;
 	unsigned int SHADER_ID;
 	C_Mesh::Data m_data;
+	glm::vec3 position;
 
 public:
 	Mesh(const std::string& meshPath);
 	inline const C_Mesh::Data& GetData() { return m_data; }
+	void Draw(Shader& shader);
 	void Update();
 	~Mesh();
 };
