@@ -24,5 +24,13 @@ void Model::LoadModel(const char* path)
 
 void Model::ProcessNode(aiNode* node, const aiScene* scene)
 {
-
+	for (unsigned int i = 0; i < node->mNumMeshes; i++)
+	{
+		aiMesh* mesh = scene->mMeshes[node->mMeshes[i]];
+		m_meshes.push_back(ProcessMesh(mesh,scene));
+	}
+	for (unsigned int i = 0; i < node->mNumChildren; i++)
+	{
+		ProcessNode(node->mChildren[i], scene);
+	}
 }

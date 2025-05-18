@@ -8,6 +8,11 @@
 #include <gtc/type_ptr.hpp>
 #include <string>
 #include "Components.h"
+#include "Shader.h"
+
+#include <assimp\Importer.hpp>
+#include <assimp\scene.h>
+#include <assimp\postprocess.h>
 
 class Mesh
 {
@@ -20,7 +25,7 @@ private:
 	glm::vec3 position;
 
 public:
-	Mesh(const std::string& meshPath);
+	Mesh(const aiMesh*);
 	inline const C_Mesh::Data& GetData() { return m_data; }
 	void Draw(Shader& shader);
 	void Update();
