@@ -25,7 +25,7 @@ private:
 	glm::vec3 position;
 
 public:
-	Mesh(const aiMesh*);
+	Mesh(C_Mesh::Data& data);
 	inline const C_Mesh::Data& GetData() { return m_data; }
 	void Draw(Shader& shader);
 	void Update();

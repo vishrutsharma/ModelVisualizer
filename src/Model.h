@@ -17,6 +17,7 @@ public:
 		LoadModel(path);
 	}
 	void Draw(Shader& shader);
+	void Update();
 
 private:
 	std::vector<Mesh> m_meshes;

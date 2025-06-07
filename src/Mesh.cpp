@@ -3,7 +3,7 @@
 #include "Scene.h"
 
 
-Mesh::Mesh(const std::string& meshPath): VBO(0),VAO(0),EBO(0)
+Mesh::Mesh(const aiMesh*): VBO(0),VAO(0),EBO(0)
 {
 	C_Mesh::Data meshData = MeshLoader::LoadMesh(meshPath.c_str());
 	if (!meshData.IsValid())
