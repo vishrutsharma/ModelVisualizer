@@ -21,12 +21,12 @@ private:
 	unsigned int VAO;
 	unsigned int EBO;
 	unsigned int SHADER_ID;
-	C_Mesh::Data m_data;
+	C_Mesh::Data* m_data;
 	glm::vec3 position;
 
 public:
-	Mesh(C_Mesh::Data& data);
-	inline const C_Mesh::Data& GetData() { return m_data; }
+	Mesh(C_Mesh::Data*);
+	//inline const C_Mesh::Data& GetData() { return m_data; }
 	void Draw(Shader& shader);
 	void Update();
 	~Mesh();

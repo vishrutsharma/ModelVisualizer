@@ -3,24 +3,17 @@
 #include <string>
 #include <vector>
 
-namespace C_Graphics
-{
-	struct Vertex
-	{
-		glm::vec3 pos;
-		glm::vec3 colors;
-		glm::vec2 uvs;
-		glm::vec3 normals;
-	};
-}
-
 namespace C_Mesh
 {
 	struct Data
 	{
 		std::string name;
-		std::vector<float> vertices;
+		std::vector<glm::vec3> vertices;
+		std::vector<glm::vec3> colors;
+		std::vector<glm::vec2> uvs;
+		std::vector<glm::vec3> normals;
 		std::vector<unsigned int> indices;
+
 		bool IsValid() const {
 			return !name.empty() && !vertices.empty() && !indices.empty();
 		}

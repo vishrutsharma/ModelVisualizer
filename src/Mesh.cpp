@@ -3,38 +3,27 @@
 #include "Scene.h"
 
 
-Mesh::Mesh(const aiMesh*): VBO(0),VAO(0),EBO(0)
+Mesh::Mesh(C_Mesh::Data* data): m_data(data), VBO(0),VAO(0),EBO(0)
 {
-	C_Mesh::Data meshData = MeshLoader::LoadMesh(meshPath.c_str());
-	if (!meshData.IsValid())
+	std::vector<float> verticesData;
+	for (int i = 0; i < m_data->vertices.size(); i++)
 	{
-		std::cout << "Does not have any Mesh Data" << std::endl;
-		return;
+		verticesData.push_back(m_data->vertices[i].x);
+		verticesData.push_back(m_data->vertices[i].y);
+		verticesData.push_back(m_data->vertices[i].z);
+
+		verticesData.push_back(m_data->colors[i].x);
+		verticesData.push_back(m_data->colors[i].y);
+		verticesData.push_back(m_data->colors[i].z);
+
+		verticesData.push_back(m_data->uvs[i].x);
+		verticesData.push_back(m_data->uvs[i].y);
+
+		verticesData.push_back(m_data->normals[i].x);
+		verticesData.push_back(m_data->normals[i].y);
+		verticesData.push_back(m_data->normals[i].z);
 	}
-
-	m_data = std::move(meshData);
-
-	std::vector<float> vertexData;
-	for (const C_Graphics::Vertex& v : m_data.vertices)
-	{
-		glm::vec3 vertices = v.pos;
-		glm::vec3 colors = v.colors;
-		glm::vec2 uvs = v.uvs;
-		glm::vec3 normals = v.normals;
-
-		vertexData.push_back(vertices[0]);
-		vertexData.push_back(vertices[1]);
-		vertexData.push_back(vertices[2]);
-		vertexData.push_back(colors[0]);
-		vertexData.push_back(colors[1]);
-		vertexData.push_back(colors[2]);
-		vertexData.push_back(uvs[0]);
-		vertexData.push_back(uvs[1]);
-		vertexData.push_back(normals[0]);
-		vertexData.push_back(normals[1]);
-		vertexData.push_back(normals[2]);
-	}
-
+	
 	glGenVertexArrays(1, &VAO);
 	glBindVertexArray(VAO);
 	glGenBuffers(1, &VBO);
