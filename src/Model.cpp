@@ -72,5 +72,8 @@ Mesh* Model::ProcessMesh(aiMesh* mesh, const aiScene* scene)
 
 void Model::Update()
 {
-
+	for (unsigned int i = 0; i < m_meshes.size(); i++)
+	{
+		m_meshes[i]->Update();
+	}
 }

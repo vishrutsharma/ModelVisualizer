@@ -23,6 +23,9 @@ private:
 	unsigned int SHADER_ID;
 	C_Mesh::Data* m_data;
 	glm::vec3 position;
+	glm::vec3 m_position;
+	glm::vec3 m_rotation;
+	glm::vec3 m_scale;
 
 public:
 	Mesh(C_Mesh::Data*);
@@ -30,4 +33,11 @@ public:
 	void Draw(Shader& shader);
 	void Update();
 	~Mesh();
+	inline void SetPosition(glm::vec3 pos) { m_position = pos; }
+	inline const glm::vec3& GetPosition() { return m_position; }
+	inline const glm::vec3& GetRotation() { return m_rotation; }
+	inline const glm::vec3& GetScale() { return m_scale; }
+
+	inline void SetRotation(glm::vec3 rotation) { m_rotation = rotation; }
+	inline void SetScale(glm::vec3 scale) { m_scale = scale; }
 };
